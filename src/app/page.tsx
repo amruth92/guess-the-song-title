@@ -1,113 +1,184 @@
-import Image from "next/image";
+"use client";
+import GetHint from "@/components/GetHint";
+import GuessWord from "@/components/GuessWord";
+import Keyboard from "@/components/Keyboard";
+import PhysicalKeyBoardInput from "@/components/PhysicalKeyBoardInput";
+import Link from "next/link";
+import {useEffect, useMemo, useRef, useState } from "react";
 
 export default function Home() {
+  const titleToBeGuessed = "RUN WITH ME";
+  const words = useMemo(() => titleToBeGuessed.split(" "), [titleToBeGuessed]);
+  const [currentWord, setCurrentWord] = useState(0);
+  const [currentUserWord, setCurrentUserWord] = useState("");
+  const NUMBER_OF_ATTEMPTS = 6;
+  const [remainingAttempts, setRemainingAttempts] = useState(NUMBER_OF_ATTEMPTS);
+  const [keyboard, setKeyBoard] = useState([
+    [
+      { value: "Q", color: "bg-neutral-300" },
+      { value: "W", color: "bg-neutral-300" },
+      { value: "E", color: "bg-neutral-300" },
+      { value: "R", color: "bg-neutral-300" },
+      { value: "T", color: "bg-neutral-300" },
+      { value: "Y", color: "bg-neutral-300" },
+      { value: "U", color: "bg-neutral-300" },
+      { value: "I", color: "bg-neutral-300" },
+      { value: "O", color: "bg-neutral-300" },
+      { value: "P", color: "bg-neutral-300" },
+    ],
+    [
+      { value: "A", color: "bg-neutral-300" },
+      { value: "S", color: "bg-neutral-300" },
+      { value: "D", color: "bg-neutral-300" },
+      { value: "F", color: "bg-neutral-300" },
+      { value: "G", color: "bg-neutral-300" },
+      { value: "H", color: "bg-neutral-300" },
+      { value: "J", color: "bg-neutral-300" },
+      { value: "K", color: "bg-neutral-300" },
+      { value: "L", color: "bg-neutral-300" },
+    ],
+    [
+      { value: "Backspace", color: "bg-neutral-300" },
+      { value: "Z", color: "bg-neutral-300" },
+      { value: "X", color: "bg-neutral-300" },
+      { value: "C", color: "bg-neutral-300" },
+      { value: "V", color: "bg-neutral-300" },
+      { value: "B", color: "bg-neutral-300" },
+      { value: "N", color: "bg-neutral-300" },
+      { value: "M", color: "bg-neutral-300" },
+      { value: "Enter", color: "bg-neutral-300" },
+    ],
+  ]);
+
+  const [tries, setTries] = useState<{ letter: string; color: string; }[][][]>([]);
+
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  const scrollToBottom = () => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
+
+  useEffect(() => {
+    const array: { letter: string; color: string; }[][][] = [];
+    words.forEach((word) => {
+      const arr = Array.from({ length: 6 }, () => (
+        Array.from({ length: word.length }, () => ({
+            letter: '',
+            color: 'border-gray-300',
+        }))
+      ))
+      array.push(arr)
+    })
+    setTries(array)
+  }, [words])
+
+  const handleKeyBoardClicked = (value: string) => {
+    if (currentWord <= 2) {
+      if (value.toUpperCase() === "ENTER" &&
+        currentUserWord.length === words[currentWord].length) {
+          for (let i = 0; i < currentUserWord.length; i++) {
+            let color = "border-gray-500 bg-gray-500 text-white";
+            if (words[currentWord][i] === currentUserWord[i]) {
+              color = "border-[#6AAA64] bg-[#6AAA64] text-white";
+            } else if (words[currentWord].includes(currentUserWord[i])) {
+              color = "border-[#C9B458] bg-[#C9B458] text-white";
+            }
+  
+            tries[currentWord][NUMBER_OF_ATTEMPTS - remainingAttempts][i].color = color;
+            // keyboard buttons
+            keyboard.forEach((row) => {
+              row.forEach((element) => {
+                if (element.value === currentUserWord[i]) {
+                  element.color = color;
+                }
+              })
+            });
+          }
+          setRemainingAttempts((prev) => prev - 1);
+          setTries([...tries]);
+          setKeyBoard([...keyboard]);
+          if (words[currentWord] === currentUserWord) {
+            setTimeout(() => {
+              alert("You Got It!");
+              scrollToBottom();
+              if (currentWord >= 2) {
+                setCurrentWord((prev) => prev + 1);
+              } else {
+                guessNext();
+              }
+            }, 500)
+            return;
+          } else if (remainingAttempts <= 1) {
+            setTimeout(() => {
+              alert("You Lost! Try Again.");
+              window.location.reload();
+            }, 500)
+            return;
+          }
+          setCurrentUserWord("");
+        }
+  
+        if (value.toUpperCase() === "BACKSPACE" && currentUserWord.length !== 0) {
+          const word_letter = tries[currentWord][NUMBER_OF_ATTEMPTS - remainingAttempts][currentUserWord.length - 1];
+          word_letter.letter = "";
+          word_letter.color = "border-gray-300";
+          setCurrentUserWord(prev => prev.slice(0, -1));
+        }
+  
+        if (currentUserWord.length === words[currentWord]?.length) return;
+  
+        if (
+          value.toUpperCase() !== "BACKSPACE" &&
+          value.toUpperCase() !== "ENTER"
+        ) {
+          setCurrentUserWord(prev => prev + value);
+          const userWord = currentUserWord + value;
+          const word_letter = tries[currentWord][NUMBER_OF_ATTEMPTS - remainingAttempts][userWord.length - 1];
+          word_letter.letter = value;
+          word_letter.color = "border-gray-400 bg-gray-400";
+          setTries([...tries]);
+        }
+    }
+  }
+
+  const guessNext = () => {
+    setCurrentWord((prev) => prev + 1);
+    if (currentWord < words.length - 1) {
+      setRemainingAttempts(NUMBER_OF_ATTEMPTS);
+      setCurrentUserWord("");
+
+      keyboard.forEach((row) => {
+        row.forEach((element) => {
+          element.color = "bg-neutral-300";
+        })
+      });
+
+      setKeyBoard([...keyboard]);
+    }
+  }
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main className="">
+      {tries.length > 0 && words.map((word, index) => (
+        <div key={index} className={`${index <= currentWord ? "" : "hidden"} mb-10`}>
+          <div>
+            <p className="text-2xl my-3 text-center">Guess Word {index + 1}</p>
+            <GuessWord tries={tries[index]} isGuessed={currentWord >= index + 1}/>
+          </div>
         </div>
-      </div>
+      ))}
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      {currentWord > 2 && <div className="my-10">
+        <p className="text-3xl font-bold text-center">Congartulations! You Got it.</p>
+        <p className="text-xl text-center font-semibold">Check the song <Link href={"/"} target="_blank" className="text-blue-500 underline hover:text-blue-600">here</Link>.</p>
+      </div>}
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+      <div ref={scrollRef}></div>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+      {currentWord <= 2 && <GetHint word={words[currentWord]}/>}
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      <Keyboard keyboard={keyboard} handleKeyBoardClicked={handleKeyBoardClicked}/>
+      <PhysicalKeyBoardInput handleKeyBoardClicked={handleKeyBoardClicked} />
     </main>
   );
 }
