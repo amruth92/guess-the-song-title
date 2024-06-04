@@ -5,7 +5,7 @@ const Navbar = () => {
 		<div className="my-5 border bg-white shadow-sm">
 			<div className="container mx-auto py-5">
 				<p className="text-3xl font-bold text-center">
-					Ravle
+					Rav-le
 				</p>
 				<br />
 				<p className="text-2xl text-center"> 
