@@ -8,7 +8,7 @@ const Navbar = () => {
 					Ravle
 				</p>
 				<br />
-				<p ClassName="text-2xl text-center"> 
+				<p className="text-2xl text-center"> 
 				Something new is coming on the 19th of July - but can you guess what it is called?
 				</p>
 			</div>
