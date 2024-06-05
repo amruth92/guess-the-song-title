@@ -2,7 +2,12 @@
 
 import React from "react";
 
-const InstructionsPopup = ({ show, onClose }) => {
+interface Props {
+  show: boolean;
+  onClose: () => void;
+}
+
+const InstructionsPopup: React.FC<Props> = ({ show, onClose }) => {
   if (!show) return null;
 
   return (
