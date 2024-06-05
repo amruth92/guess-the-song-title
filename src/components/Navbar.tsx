@@ -1,4 +1,10 @@
+import React from 'react';
+
 const Navbar = () => {
+  return <nav>Navbar Component</nav>;
+};
+
+export default Navbar; // Add this line
   const toggleInstructions = () => {
     const instructionsPopup = document.getElementById("instructions-popup");
     if (instructionsPopup) {
