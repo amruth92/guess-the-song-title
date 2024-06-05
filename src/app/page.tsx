@@ -171,7 +171,8 @@ export default function Home() {
       {currentWord > 2 && <div className="my-10">
         <p className="text-3xl font-bold text-center">Well done! You guessed it correctly!</p>
         <p className="text-xl text-center font-semibold"> <Link href={"https://idm.fm/run-with-me/presavecallback?context=pre_save&service=spotify&redirecturl&actionid&order=665cecaa51c0c8474a4e069c&user=raviamruth&status=success&origin=presavecallback"} target="_blank" className="text-blue-500 underline hover:text-blue-600"> Pre-save Run With Me </Link>.</p>
-         <p className="text-xl text-center font-semibold"> <Link href={"/"} target="_blank" className="text-blue-500 underline hover:text-blue-600"> Pre-save Run With Me </Link>.</p>
+        <p className="text-xl text-center font-semibold"> <Link href={"/"} target="_blank" className="text-blue-500 underline hover:text-blue-600"> Pre-save Run With Me </Link>.</p>
+        <p className="text-2xl text-center"> Enjoyed playing Rav-le? <link href={"http://twitter.com/share?text= 🟩🟩  🟩🟩🟩🟩  🟩🟩. %0A I guessed the Ravle correctly! Can you guess what the words are? &url=http://www.ravi.am%0A&hashtags=RAVLE,wordle,unsignedartist,19thJuly2024"}target="_blank" className="text-red-500 underline hover:text-red-600"> Share it with a friend!</link>
       </div>}
 
       <div ref={scrollRef}></div>
