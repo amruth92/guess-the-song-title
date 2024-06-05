@@ -217,7 +217,7 @@ export default function Home() {
 
       <div ref={scrollRef}></div>
 
-      {currentWord <= 2 && <GetHint word={words[currentWord]}/>}
+
 
       <Keyboard keyboard={keyboard} handleKeyBoardClicked={handleKeyBoardClicked}/>
       <PhysicalKeyBoardInput handleKeyBoardClicked={handleKeyBoardClicked} />
