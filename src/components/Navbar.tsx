@@ -7,7 +7,27 @@ const Navbar = () => {
     setShowInstructions(!showInstructions);
   };
 
-  const InstructionsPopup = React.lazy(() => import("./InstructionsPopup"));
+  const InstructionsPopup = () => {
+    const [isClient, setIsClient] = useState(false);
+
+    React.useEffect(() => {
+      setIsClient(true);
+    }, []);
+
+    return (
+      <>
+        {isClient && showInstructions && (
+          <div className="instructions-popup">
+            <div className="instructions-content">
+              <h2>Game Instructions</h2>
+              <p>Write your code here...</p>
+              <button onClick={toggleInstructions}>Close</button>
+            </div>
+          </div>
+        )}
+      </>
+    );
+  };
 
   return (
     <div className="my-5 border bg-white shadow-sm">
@@ -18,11 +38,7 @@ const Navbar = () => {
         <p className="text-1xl text-center">Something new is coming on the 19th of July - but can you guess what it is called?</p>
         <button onClick={toggleInstructions}>Show Instructions</button>
       </div>
-      {showInstructions && (
-        <React.Suspense fallback={<div>Loading...</div>}>
-          <InstructionsPopup onClose={toggleInstructions} />
-        </React.Suspense>
-      )}
+      <InstructionsPopup />
     </div>
   );
 };
