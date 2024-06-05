@@ -1,4 +1,3 @@
-// @use-client
 import React, { useState } from "react";
 import InstructionsPopup from "./InstructionsPopup";
 
@@ -9,6 +8,9 @@ const Navbar = () => {
     setShowInstructions(!showInstructions);
   };
 
+  // Check if window is defined (client-side) before rendering
+  const isClient = typeof window !== "undefined";
+
   return (
     <div className="my-5 border bg-white shadow-sm">
       <div className="container mx-auto py-5">
@@ -18,7 +20,7 @@ const Navbar = () => {
         <p className="text-1xl text-center">Something new is coming on the 19th of July - but can you guess what it is called?</p>
         <button onClick={toggleInstructions}>Show Instructions</button>
       </div>
-      {showInstructions && <InstructionsPopup onClose={toggleInstructions} />}
+      {showInstructions && isClient && <InstructionsPopup onClose={toggleInstructions} />}
     </div>
   );
 };
