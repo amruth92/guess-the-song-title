@@ -1,5 +1,5 @@
 "use client";
-
+import GetHint from "@/components/GetHint";
 import GuessWord from "@/components/GuessWord";
 import Keyboard from "@/components/Keyboard";
 import PhysicalKeyBoardInput from "@/components/PhysicalKeyBoardInput";
