@@ -170,19 +170,15 @@ export default function Home() {
 
       {currentWord > 2 && <div className="my-10">
         <p className="text-3xl font-bold text-center">Well done! You guessed the title correctly!</p>
-        <p className="text-xl text-semibold text-center"> Run With Me, out 19th July 2024</p>
-        <p className="text-2xl text-bold text-center"> <Link href={"https://idm.fm/run-with-me/presavecallback?context=pre_save&service=spotify&redirecturl&actionid&order=665cecaa51c0c8474a4e069c&user=raviamruth&status=success&origin=presavecallback"} target="_blank" className="text-blue-500 underline hover:text-blue-600"> Pre-save Run With Me NOW</Link>!</p>
-        <p className="text-l font-semibold text-center"> <Link href={"http://twitter.com/share?text= 🟩🟩  🟩🟩🟩🟩  🟩🟩. %0A I guessed the Ravle correctly! Can you guess what the words are? &url=http://www.ravi.am%0A&hashtags=RAVLE,wordle,unsignedartist,19thJuly2024"} target="_blank" className="text-red-700 underline hover:text-red-300"> Enjoyed playing Ravle? Share it with a friend!</Link></p>
-      {/* Centered SoundCloud Embed */}
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
         <div>
           <iframe 
-            width="300" 
+            width="400" 
             height="166" 
             scrolling="no" 
             frameBorder="no" 
             allow="autoplay" 
-            src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1838540424%3Fsecret_token%3Ds-sVFGaAQUncq&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
+            src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1838540424%3Fsecret_token%3Ds-sVFGaAQUncq&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=true">
           </iframe>
           <div 
             style={{
@@ -213,6 +209,10 @@ export default function Home() {
           </div>
         </div>
       </div>
+        <p className="text-xl text-semibold text-center"> Run With Me, out 19th July 2024</p>
+        <p className="text-2xl text-bold text-center"> <Link href={"https://idm.fm/run-with-me/presavecallback?context=pre_save&service=spotify&redirecturl&actionid&order=665cecaa51c0c8474a4e069c&user=raviamruth&status=success&origin=presavecallback"} target="_blank" className="text-blue-500 underline hover:text-blue-600"> Pre-save Run With Me NOW</Link>!</p>
+        <p className="text-l font-semibold text-center"> <Link href={"http://twitter.com/share?text= 🟩🟩  🟩🟩🟩🟩  🟩🟩. %0A I guessed the Ravle correctly! Can you guess what the words are? &url=http://www.ravi.am%0A&hashtags=RAVLE,wordle,unsignedartist,19thJuly2024"} target="_blank" className="text-red-700 underline hover:text-red-300"> Enjoyed playing Ravle? Share it with a friend!</Link></p>
+      {/* Centered SoundCloud Embed */}
       </div>}
 
       <div ref={scrollRef}></div>
