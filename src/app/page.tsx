@@ -175,8 +175,8 @@ export default function Home() {
         <p className="text-l font-semibold text-center"> <Link href={"http://twitter.com/share?text= 🟩🟩  🟩🟩🟩🟩  🟩🟩. %0A I guessed the Ravle correctly! Can you guess what the words are? &url=http://www.ravi.am%0A&hashtags=RAVLE,wordle,unsignedartist,19thJuly2024"} target="_blank" className="text-red-700 underline hover:text-red-300"> Enjoyed playing Ravle? Share it with a friend!</Link></p>
        <div>
         <iframe 
-          width="100%" 
-          height="166" 
+          width="50%" 
+          height="100" 
           scrolling="no" 
           frameBorder="no" 
           allow="autoplay" 
