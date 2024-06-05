@@ -5,7 +5,7 @@ const Navbar = () => {
 		<div className="my-5 border bg-white shadow-sm">
 			<div className="container mx-auto py-5">
 				<div className="justify-center items-center text-center">
-    				<img src="http://ravi.am/wp-content/uploads/2024/05/NewLogo-e1717571719812.jpg" alt="Ravi Amruth Logo">
+    				<img src="http://ravi.am/wp-content/uploads/2024/05/NewLogo-e1717571719812.jpg" alt="Ravi Amruth Logo" className="mx-auto">
 				</img> </div>
 			<p className="text-3xl font-bold text-center">
 			Rav-le
