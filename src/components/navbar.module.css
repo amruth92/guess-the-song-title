@@ -1,0 +1,30 @@
+/* Navbar.module.css */
+
+.popup {
+  display: none; /* Hide the pop-up by default */
+  position: fixed; /* Position the pop-up */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 999; /* Ensure the pop-up appears on top of other content */
+}
+
+.popup-content {
+  position: absolute; /* Position the pop-up content */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fefefe;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
