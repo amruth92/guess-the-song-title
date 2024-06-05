@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import InstructionsPopup from "./InstructionsPopup";
 
 const Navbar = () => {
   const [showInstructions, setShowInstructions] = useState(false);
@@ -8,8 +7,7 @@ const Navbar = () => {
     setShowInstructions(!showInstructions);
   };
 
-  // Check if window is defined (client-side) before rendering
-  const isClient = typeof window !== "undefined";
+  const InstructionsPopup = React.lazy(() => import("./InstructionsPopup"));
 
   return (
     <div className="my-5 border bg-white shadow-sm">
@@ -20,7 +18,11 @@ const Navbar = () => {
         <p className="text-1xl text-center">Something new is coming on the 19th of July - but can you guess what it is called?</p>
         <button onClick={toggleInstructions}>Show Instructions</button>
       </div>
-      {showInstructions && isClient && <InstructionsPopup onClose={toggleInstructions} />}
+      {showInstructions && (
+        <React.Suspense fallback={<div>Loading...</div>}>
+          <InstructionsPopup onClose={toggleInstructions} />
+        </React.Suspense>
+      )}
     </div>
   );
 };
