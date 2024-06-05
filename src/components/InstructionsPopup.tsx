@@ -1,15 +1,15 @@
 import React from "react";
 
 const InstructionsPopup = ({ onClose }) => {
-  const [isClient, setIsClient] = React.useState(false);
+  const [showPopup, setShowPopup] = React.useState(false);
 
   React.useEffect(() => {
-    setIsClient(true);
+    setShowPopup(true);
   }, []);
 
   return (
     <>
-      {isClient && (
+      {showPopup && (
         <div className="instructions-popup">
           <div className="instructions-content">
             <h2>Game Instructions</h2>
