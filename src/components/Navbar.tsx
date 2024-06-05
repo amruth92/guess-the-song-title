@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import styles from "./Navbar.module.css"; // Import the CSS module
 
 const Navbar = () => {
-  const [showInstructions, setShowInstructions] = useState(false);
-
-  useEffect(() => {
-    // Initial setup code, if needed
-  }, []); // Empty dependency array to run only once on mount
-
   const toggleInstructions = () => {
-    setShowInstructions(!showInstructions);
+    const instructionsPopup = document.getElementById("instructions-popup");
+    instructionsPopup.classList.toggle(styles.show); // Use the CSS module class
   };
 
   return (
@@ -28,20 +24,18 @@ const Navbar = () => {
         <button onClick={toggleInstructions} className="btn">
           Instructions
         </button>
-        {showInstructions && (
-          <div className="modal">
-            <div className="modal-content">
-              <span className="close" onClick={toggleInstructions}>
-                &times;
-              </span>
-              <h2>Instructions</h2>
-              <p>
-                Insert your game instructions here. Describe how to play the
-                game, its objectives, rules, controls, etc.
-              </p>
-            </div>
+        <div id="instructions-popup" className={styles.popup}> {/* Use the CSS module class */}
+          <div className={styles.popupContent}> {/* Use the CSS module class */}
+            <span className={styles.close} onClick={toggleInstructions}>
+              &times;
+            </span>
+            <h2>Instructions</h2>
+            <p>
+              Insert your game instructions here. Describe how to play the game,
+              its objectives, rules, controls, etc.
+            </p>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
