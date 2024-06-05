@@ -1,22 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 
 const Navbar = () => {
-  const [showInstructions, setShowInstructions] = useState(false);
+  const [showInstructions, setShowInstructions] = React.useState(false);
 
   const toggleInstructions = () => {
     setShowInstructions(!showInstructions);
   };
 
   const InstructionsPopup = () => {
-    const [isClient, setIsClient] = useState(false);
-
-    React.useEffect(() => {
-      setIsClient(true);
-    }, []);
+    if (typeof window === 'undefined') return null; // Don't render on server
 
     return (
       <>
-        {isClient && showInstructions && (
+        {showInstructions && (
           <div className="instructions-popup">
             <div className="instructions-content">
               <h2>Game Instructions</h2>
