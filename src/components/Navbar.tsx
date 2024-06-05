@@ -3,8 +3,8 @@ import React from "react";
 const Navbar = () => {
 	return (
 		<div className="my-5 border bg-white shadow-sm">
-			<div className="items-center">
-    <img src="https://ravi.am/wp-content/uploads/2024/04/NewLogoDarkNoBack.png" alt="Ravi Amruth Logo">
+			<div className="justify-center items-center">
+    <img src="http://ravi.am/wp-content/uploads/2024/05/NewLogo-e1717571719812.jpg" alt="Ravi Amruth Logo">
 			</img> </div>
 				<div className="container mx-auto py-5">
 					<p className="text-3xl font-bold text-center">
