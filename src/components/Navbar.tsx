@@ -1,11 +1,12 @@
 import React from "react";
 import styles from "./Navbar.module.css"; // Import the CSS module
 
-const Navbar = () => {
-  const toggleInstructions = () => {
-    const instructionsPopup = document.getElementById("instructions-popup");
-    instructionsPopup.classList.toggle(styles.show); // Use the CSS module class
-  };
+const toggleInstructions = () => {
+  const instructionsPopup = document.getElementById("instructions-popup");
+  if (instructionsPopup) {
+    instructionsPopup.classList.toggle(styles.show);
+  }
+};
 
   return (
     <div className="my-5 border bg-white shadow-sm">
