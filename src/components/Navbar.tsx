@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Navbar = () => {
   const [showInstructions, setShowInstructions] = useState(false);
+
+  useEffect(() => {
+    // Initial setup code, if needed
+  }, []); // Empty dependency array to run only once on mount
 
   const toggleInstructions = () => {
     setShowInstructions(!showInstructions);
