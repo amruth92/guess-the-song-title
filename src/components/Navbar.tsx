@@ -26,7 +26,7 @@ const Navbar = () => {
 						></img>
 					</div>
 					<p className="text-1xl text-center">
-						Something new is coming on the 19th of July - but can
+						Something new is coming soon - but can
 						you guess what it is called?
 					</p>
 				</div>
